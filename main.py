@@ -55,6 +55,7 @@ def number_of_intersections(input_list_values,input_list_points):
     seen = set()
     qlength = 0
     q = deque([])
+    #Seen and unseen two sets find diff between 
     
     for val, event_type, idx in events:
         if event_type == -1 and q[0][2] == idx:
