@@ -12,9 +12,9 @@ of which points are currently "open" and which are "closed" which is important f
 it will mess up which order our points get added to the queue. We make sure to sort the events list so that it's in perfect order and our line is sweeping across the circle from [0,2pi] radians.
 
 Next, we use two variables qlength = 0, count = 0 and a queue data structure to add our points from the events list. The queue runs so that each time we encounter a start point we take into account how many points come after that start point in the queue before said
-point closes. This is done for every pair in the events list. This is because if a different point has a higher starting point than the one we are looking at, it should intersect with our point given the end is greater than the
-end point of the point we are looking at. If it's not the queue deals with that as well, which is the elif part of the loop. If we open at lets say 0.8 and close right away at 0.9 we remove right away from the queue the 0.8 and subtract 1 from our count
-because we always subtract when a point is closed. Count is incremented by 1 each time we have an event type that is 1(opening a point) and decremented by 1 when we pop because that signals a point has closed. We add count to our qlength if we 
+point closes. This is done for every element in the events list. This is because if a different point has a higher starting point than the one we are looking at, it should intersect with our point given the end is greater than the
+end point of the point we are looking at. If it's not greater, the queue deals with that as well, which is the elif part of the loop. If we open at lets say 0.8 and close right away at 0.9 we remove right away from the queue the 0.8 and subtract 1 from our count
+because we always subtract when a point is closed. Count is incremented by 1 each time we have an event type that is 1(opening a point) and decremented by 1 when we pop because that signals a point has closed. We add count to our qlength variable if we 
 do a popleft and make sure to subtract 1 from count as well because the next opening point we start with is no longer part of our interval aka it's not between [open,closed] since its the current point we are inspecting. 
 
 TIME COMPLEXITY ANALYSIS:
