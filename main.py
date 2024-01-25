@@ -1,3 +1,5 @@
+from collections import deque
+
 def number_of_intersections(input_list_values: list, input_list_points: list):
     if len(input_list_values) < 4 or  len(input_list_points) < 4: return 0 # Need at least two chords to form an intersection
     
