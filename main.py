@@ -2,7 +2,6 @@ def number_of_intersections(input_list_values,input_list_points):
     if len(input_list_values) < 4 or  len(input_list_points) < 4: return 0 # Need at least two chords to form an intersection
     
     combined_list = list(zip(input_list_values,input_list_points))
-    print(combined_list)
     
     points_to_values = {}
     for value, point in combined_list:
@@ -14,13 +13,11 @@ def number_of_intersections(input_list_values,input_list_points):
 
     pairs = [[points_to_values[f's{i}'], points_to_values[f'e{i}']] for i in range(1, len(combined_list) // 2 + 1)]
 
-    sorted_pairs = sorted(pairs, key=lambda pair: pair[0])
-    print(sorted_pairs)
-        
+    sorted_pairs = sorted(pairs, key=lambda pair: pair[0])        
     events = []
 
-    # Create events for start and end points
-    for i, (start, end) in enumerate([[0.78, 1.77], [1.47, 3.92],[1.55,4.5],[2.5,5],[3.1,1.3],[1.6,3.3]]):
+    # Created events for start and end points
+    for i, (start, end) in enumerate(sorted_pairs):
         if start > end:
             start,end = end,start
 
@@ -29,16 +26,13 @@ def number_of_intersections(input_list_values,input_list_points):
     
     # Sort events based on points and event types
     events.sort()
-    print(events)# Try set with variable seen 
-    
-     count = 0
-    
+     
+    count = 0
     qlength = 0
     q = deque([])
     
     for val, event_type, idx in events:
         if q and event_type == -1 and q[0][2] == idx:
-            print('first',q)
             q.popleft()
             if q: 
                 while len(q) > 1 and q[0][-1] == q[-1][-1]:
