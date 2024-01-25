@@ -1,26 +1,5 @@
-def count_intersections(inputList: list):
-    intersections = 0
-  
-    if not inputList: return 0 
-    
-    start_points = inputList[:len(inputList)//2] #O(k) elements
-    end_points = inputList[len(inputList)//2:]
-    #Given each point should have start and end we can split the list in half 
-    combined_list = list(zip(start_points,end_points))
-    print(combined_list)
-    
-    for i in range(len(combined_list)):
-        print(i) 
-      #If angle(end1 > angle start 2) add 1 
-    
-    
-count_intersections([0.78,1.47,1.77,3.92])
-
-
-x = [1.78,1.47,1.77,3.92]
-y = ['e1','s1','e2','s2']
 def number_of_intersections(input_list_values,input_list_points):
-    if not input_list_values or not input_list_points: return 0
+    if len(input_list_values) < 4 or  len(input_list_points) < 4: return 0 # Need at least two chords to form an intersection
     
     combined_list = list(zip(input_list_values,input_list_points))
     print(combined_list)
@@ -52,29 +31,37 @@ def number_of_intersections(input_list_values,input_list_points):
     events.sort()
     print(events)# Try set with variable seen 
     
-    seen = set()
+     count = 0
+    
     qlength = 0
     q = deque([])
-    #Seen and unseen two sets find diff between 
     
     for val, event_type, idx in events:
-        if event_type == -1 and q[0][2] == idx:
-            q.append((val,event_type,idx))
-            while q and q[0][2] == q[-1][2]:
-                q.popleft()
-                if q: 
-                    print(q)
-                    qlength += len(q) - len(seen)
-                    seen = set(list(q))
+        if q and event_type == -1 and q[0][2] == idx:
+            print('first',q)
+            q.popleft()
+            if q: 
+                while len(q) > 1 and q[0][-1] == q[-1][-1]:
+                    qlength += count - 1 
+                    q.popleft()
+                else: 
+                    qlength += count - 1
+                count -= 1
                 
-        elif event_type == -1 and q[0][2] != idx:
-            q.append((val,event_type,idx))
+        elif q and event_type == -1 and q[0][2] != idx:
+            if q[-1][2] == idx:
+                q.pop()
+                count -= 1
+            else:
+                q.append((val,event_type,idx))
+                count -= 1 
         else:
             q.append((val,event_type,idx))
+            count += 1
         
-        print(val,qlength)
-        
-        
+        if count < 0: count = 0
+    
+    
     return qlength
     
     
