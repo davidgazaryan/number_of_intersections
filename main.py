@@ -1,4 +1,4 @@
-def number_of_intersections(input_list_values,input_list_points):
+def number_of_intersections(input_list_values: list, input_list_points: list):
     if len(input_list_values) < 4 or  len(input_list_points) < 4: return 0 # Need at least two chords to form an intersection
     
     combined_list = list(zip(input_list_values,input_list_points))
@@ -12,20 +12,19 @@ def number_of_intersections(input_list_values,input_list_points):
 
 
     pairs = [[points_to_values[f's{i}'], points_to_values[f'e{i}']] for i in range(1, len(combined_list) // 2 + 1)]
-
-    sorted_pairs = sorted(pairs, key=lambda pair: pair[0])        
+     
     events = []
 
     # Created events for start and end points
-    for i, (start, end) in enumerate(sorted_pairs):
+    for i, (start, end) in enumerate(pairs):
         if start > end:
             start,end = end,start
 
         events.append((start, 1, i))  # 1 represents the start of an interval
         events.append((end, -1, i))  # -1 represents the end of an interval
     
-    # Sort events based on points and event types
-    events.sort()
+    # Sort events based on points and event types which runs in o(n log n)
+    events.sort() 
      
     count = 0
     qlength = 0
@@ -55,8 +54,6 @@ def number_of_intersections(input_list_values,input_list_points):
         
         if count < 0: count = 0
     
-    
     return qlength
-    
     
 print(number_of_intersections([0.78,1.47,1.77,3.92],['e1','s1','e2','s2']))
