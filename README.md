@@ -1,4 +1,4 @@
-# number_of_intersections
+# Algorithm for finding number of intersections between n chords in a unit circle who have starting and ending points from [0,2pi] radians
 
 How To Run: Use the Two lists as inputs in the main function "number_of_intersections."
 
